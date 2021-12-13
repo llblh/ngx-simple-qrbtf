@@ -1,0 +1,48 @@
+html, body {
+  overflow: hidden;
+}
+.content {
+  padding: 20px;
+  display: flex;
+  .item {
+    margin-left: 20px;
+  }
+}
+.qrcode-form {
+  margin: 20px;
+  &-body {
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  &-group {
+    padding: 20px;
+    border-radius: 5px;
+  }
+  &-label {
+    display: block;
+    margin-bottom: 4px;
+    font-size: 14px;
+  }
+  &-input {
+    display: block;
+    margin: 0;
+    padding: 6px 10px;
+    &[type=color], &[type=range] {
+      padding: 0;
+      height: 30px;
+    }
+  }
+}
+::ng-deep {
+  .qrcode {
+    display: block;
+    margin-bottom: 12px;
+    width: 170px;
+    border: 1px solid #ccc;
+    padding: 20px;
+  }
+}

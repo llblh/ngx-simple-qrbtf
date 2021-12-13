@@ -1,0 +1,240 @@
+<div class="qrcode-form">
+  <div class="qrcode-form__header">
+    <h1>QR Code Generator</h1>
+  </div>
+  <div class="qrcode-form-body">
+    <div class="qrcode-form-group">
+      <label class="qrcode-form-label" for="qrcode-form-input">二维码内容</label>
+      <input class="qrcode-form-input" id="qrcode-form-input" type="text" placeholder="" [(ngModel)]="content" name="content" />
+    </div>
+    <div class="qrcode-form-group">
+      <label class="qrcode-form-label" for="qrcode-form_iconenabled">定位点样式</label>
+      <select class="qrcode-form-input" [(ngModel)]="posType">
+        <option value="rect">矩形</option>
+        <option value="round">圆形</option>
+        <option value="planet">行星</option>
+        <option value="roundRect">圆角矩形</option>
+      </select>
+    </div>
+    <div class="qrcode-form-group">
+      <label class="qrcode-form-label" for="qrcode-form_iconenabled">信息点样式</label>
+      <select class="qrcode-form-input" [(ngModel)]="type">
+        <option value="rect">矩形</option>
+        <option value="round">圆形</option>
+        <option value="rand">随机</option>
+      </select>
+    </div>
+    <div class="qrcode-form-group">
+      <label class="qrcode-form-label" for="qrcode-form_size">信息点缩放比例</label>
+      <input class="qrcode-form-input" id="qrcode-form_iconScale" type="range" min="1" max="100" placeholder="" [(ngModel)]="size" />
+    </div>
+    <div class="qrcode-form-group">
+      <label class="qrcode-form-label" for="qrcode-form_size">信息点透明度</label>
+      <input class="qrcode-form-input" id="qrcode-form_iconScale" type="range" min="1" max="100" placeholder="" [(ngModel)]="opacity" />
+    </div>
+    <div class="qrcode-form-group">
+      <label class="qrcode-form-label" for="qrcode-form_otherColor">定位点颜色</label>
+      <input class="qrcode-form-input" id="qrcode-form_posColor" type="color" [(ngModel)]="posColor" />
+    </div>
+    <div class="qrcode-form-group">
+      <label class="qrcode-form-label" for="qrcode-form_posColor">信息点颜色</label>
+      <input class="qrcode-form-input" id="qrcode-form_otherColor" type="color" [(ngModel)]="otherColor" />
+    </div>
+    <div class="qrcode-form-group">
+      <label class="qrcode-form-label" for="qrcode-form_iconenabled">图标</label>
+      <select class="qrcode-form-input" [(ngModel)]="iconEnabledType">
+        <option value="0">无</option>
+        <option value="1">自定义</option>
+        <option value="2">微信1</option>
+        <option value="3">微信2</option>
+        <option value="4">微信支付</option>
+        <option value="5">支付宝2</option>
+      </select>
+    </div>
+    <div class="qrcode-form-group" *ngIf="iconEnabled === 1">
+      <label class="qrcode-form-label" for="qrcode-form_icon-src">图标上传</label>
+      <input class="qrcode-form-input" id="qrcode-form_icon-src" type="file" (change)="onChangeIconSrc($event)" />
+    </div>
+    <div class="qrcode-form-group" *ngIf="iconEnabled !== 0">
+      <label class="qrcode-form-label" for="qrcode-form_iconScale">图标大小</label>
+      <input class="qrcode-form-input" id="qrcode-form_iconScale" type="range" min="10" max="33" placeholder="" [(ngModel)]="iconScale" />
+    </div>
+  </div>
+<div class="content">
+  <div class="item">
+    <ngx-simple-qrbtf-base
+      #qrcodeBase
+      class="qrcode"
+      [content]="content"
+      [type]="type"
+      [pos-type]="posType"
+      [size]="size"
+      [otherColor]="otherColor"
+      [posColor]="posColor"
+      [opacity]="opacity"
+      [icon-enabled]="iconEnabled"
+      [icon-scale]="iconScale"
+      [icon-src]="iconSrc"
+    ></ngx-simple-qrbtf-base>
+    <div>
+      <button class="qrcode-form-button" (click)="download('base', 'svg')">下载SVG</button>
+      <button class="qrcode-form-button" (click)="download('base', 'png')">下载PNG</button>
+      <button class="qrcode-form-button" (click)="download('base', 'jpg')">下载JPG</button>
+    </div>
+  </div>
+  <div class="item">
+    <ngx-simple-qrbtf-circle
+      #qrcodeCircle
+      class="qrcode"
+      [content]="content"
+      [size]="size"
+      [otherColor]="otherColor"
+      [posColor]="posColor"
+      [opacity]="opacity"
+      [icon-enabled]="iconEnabled"
+      [icon-scale]="iconScale"
+      [icon-src]="iconSrc"
+    ></ngx-simple-qrbtf-circle>
+    <div>
+      <button class="qrcode-form-button" (click)="download('circle', 'svg')">下载SVG</button>
+      <button class="qrcode-form-button" (click)="download('circle', 'png')">下载PNG</button>
+      <button class="qrcode-form-button" (click)="download('circle', 'jpg')">下载JPG</button>
+    </div>
+  </div>
+  <div class="item">
+    <ngx-simple-qrbtf-dsj
+      #qrcodeDsj
+      class="qrcode"
+      [content]="content"
+      [size]="size"
+      [icon-enabled]="iconEnabled"
+      [icon-scale]="iconScale"
+      [icon-src]="iconSrc"
+    ></ngx-simple-qrbtf-dsj>
+    <div>
+      <button class="qrcode-form-button" (click)="download('dsj', 'svg')">下载SVG</button>
+      <button class="qrcode-form-button" (click)="download('dsj', 'png')">下载PNG</button>
+      <button class="qrcode-form-button" (click)="download('dsj', 'jpg')">下载JPG</button>
+    </div>
+  </div>
+  <div class="item">
+    <ngx-simple-qrbtf-func
+      #qrcodeFunc
+      class="qrcode"
+      [content]="content"
+      [type]="type"
+      [pos-type]="posType"
+      [size]="size"
+      [posColor]="posColor"
+      [opacity]="opacity"
+      [icon-enabled]="iconEnabled"
+      [icon-scale]="iconScale"
+      [icon-src]="iconSrc"
+    ></ngx-simple-qrbtf-func>
+    <div>
+      <button class="qrcode-form-button" (click)="download('func', 'svg')">下载SVG</button>
+      <button class="qrcode-form-button" (click)="download('func', 'png')">下载PNG</button>
+      <button class="qrcode-form-button" (click)="download('func', 'jpg')">下载JPG</button>
+    </div>
+  </div>
+  <div class="item">
+    <ngx-simple-qrbtf-image-fill
+      #qrcodeImageFill
+      class="qrcode"
+      [content]="content"
+      [size]="size"
+      [opacity]="opacity"
+      [icon-enabled]="iconEnabled"
+      [icon-scale]="iconScale"
+      [icon-src]="iconSrc"
+    ></ngx-simple-qrbtf-image-fill>
+    <div>
+      <button class="qrcode-form-button" (click)="download('image-fill', 'svg')">下载SVG</button>
+      <button class="qrcode-form-button" (click)="download('image-fill', 'png')">下载PNG</button>
+      <button class="qrcode-form-button" (click)="download('image-fill', 'jpg')">下载JPG</button>
+    </div>
+  </div>
+  <div class="item">
+    <ngx-simple-qrbtf-image
+      #qrcodeImage
+      class="qrcode"
+      [content]="content"
+      [size]="size"
+      [opacity]="opacity"
+      [icon-enabled]="iconEnabled"
+      [icon-scale]="iconScale"
+      [icon-src]="iconSrc"
+      darkColor= "#000000"
+      lightColor= "#FFFFFF"
+      posColor= "#000000"
+    ></ngx-simple-qrbtf-image>
+    <div>
+      <button class="qrcode-form-button" (click)="download('image', 'svg')">下载SVG</button>
+      <button class="qrcode-form-button" (click)="download('image', 'png')">下载PNG</button>
+      <button class="qrcode-form-button" (click)="download('image', 'jpg')">下载JPG</button>
+    </div>
+  </div>
+  <div class="item">
+    <ngx-simple-qrbtf-line
+      #qrcodeImageLine
+      class="qrcode"
+      [content]="content"
+      [size]="size"
+      [opacity]="opacity"
+      [icon-enabled]="iconEnabled"
+      [icon-scale]="iconScale"
+      [icon-src]="iconSrc"
+      pos-type="rect"
+      direction = "left-right"
+      [lineWidth] = "50"
+      [lineOpacity] = "100"
+      lineColor  = "#000000"
+      posColor  = "#000000"
+    ></ngx-simple-qrbtf-line>
+    <div>
+      <button class="qrcode-form-button" (click)="download('line', 'svg')">下载SVG</button>
+      <button class="qrcode-form-button" (click)="download('line', 'png')">下载PNG</button>
+      <button class="qrcode-form-button" (click)="download('line', 'jpg')">下载JPG</button>
+    </div>
+  </div>
+  <div class="item">
+    <ngx-simple-qrbtf-rand-rect
+      #qrcodeImageRandRest
+      class="qrcode"
+      [content]="content"
+      [size]="size"
+      [opacity]="opacity"
+      [icon-enabled]="iconEnabled"
+      [icon-scale]="iconScale"
+      [icon-src]="iconSrc"
+    ></ngx-simple-qrbtf-rand-rect>
+    <div>
+      <button class="qrcode-form-button" (click)="download('rand-rect', 'svg')">下载SVG</button>
+      <button class="qrcode-form-button" (click)="download('rand-rect', 'png')">下载PNG</button>
+      <button class="qrcode-form-button" (click)="download('rand-rect', 'jpg')">下载JPG</button>
+    </div>
+  </div>
+  <div class="item">
+    <ngx-simple-qrbtf-solid
+      #qrcodeImageFill
+      class="qrcode"
+      [content]="content"
+      [size]="size"
+      [opacity]="opacity"
+      [icon-enabled]="iconEnabled"
+      [icon-scale]="iconScale"
+      [icon-src]="iconSrc"
+      upColor="#333"
+      leftColor="#666"
+      rightColor="#999"
+      [height]="0.5"
+      [lpHeight]= "1"
+    ></ngx-simple-qrbtf-solid>
+    <div>
+      <button class="qrcode-form-button" (click)="download('solid', 'svg')">下载SVG</button>
+      <button class="qrcode-form-button" (click)="download('solid', 'png')">下载PNG</button>
+      <button class="qrcode-form-button" (click)="download('solid', 'jpg')">下载JPG</button>
+    </div>
+  </div>
+  
+</div>
