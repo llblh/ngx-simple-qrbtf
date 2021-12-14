@@ -4,12 +4,14 @@ import { defaultImage } from '../utils';
 export interface ImageFillQrOptions {
   image: string;
   color: string;
+  opacity: number;
 }
 
 const ImageFillRenderer: Renderer<ImageFillQrOptions> = {
   defaultProps: {
     image: defaultImage,
     color: 'rgba(0,0,0,0)',
+    opacity: 10,
   },
   listPoints: (props) => {
     const { qrcode } = props;
@@ -24,7 +26,7 @@ const ImageFillRenderer: Renderer<ImageFillQrOptions> = {
 
     pointList.push(
       `<image x='-0.01' y='-0.01' width='${nCount + 0.02}' height='${nCount + 0.02
-      }' xlink:href='${image}'/>`
+      }' xlink:href='${image || defaultImage}'/>`
     );
     pointList.push(
       `<rect x='-0.01' y='-0.01' width='${nCount + 0.02}' height='${nCount + 0.02

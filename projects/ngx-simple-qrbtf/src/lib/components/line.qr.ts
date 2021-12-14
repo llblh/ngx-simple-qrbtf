@@ -20,8 +20,8 @@ enum LineDirection {
 
 interface LineQrOptions {
   direction?: LineDirection | string;
-  lineWidth?: number;
-  lineOpacity?: number;
+  size?: number;
+  opacity?: number;
   lineColor?: string;
   posType?: PosType | string;
   posColor?: string;
@@ -31,8 +31,8 @@ const LineQrRenderer: Renderer<LineQrOptions> = {
   defaultProps: {
     direction: LineDirection.LeftToRight,
     posType: PosType.Rect,
-    lineWidth: 50,
-    lineOpacity: 100,
+    size: 50,
+    opacity: 100,
     lineColor: '#000000',
     posColor: '#000000',
   },

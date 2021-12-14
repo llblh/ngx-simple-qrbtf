@@ -21,8 +21,8 @@ export class CircleQrComponent implements OnInit, OnChanges {
   @Input('icon-enabled') iconEnabled: number = 0; // 是否启用 icon 图标
   @Input('icon-scale') iconScale: number = 33; // icon 大小
   @Input('icon-src') iconSrc: string = ''; // 自定义 icon 图标 iconEnabled = 1 时生效
-  @Input() otherColor: string = '#000000'; // 二维码定位点颜色
-  @Input() posColor: string = '#000000'; // 二维码信息点颜色
+  @Input('other-color') otherColor: string = '#000000'; // 二维码定位点颜色
+  @Input('pos-color') posColor: string = '#000000'; // 二维码信息点颜色
 
   qrcode!: string;
 

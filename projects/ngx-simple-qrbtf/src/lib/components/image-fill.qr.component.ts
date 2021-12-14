@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { ImageFillQr } from './image-fill.qr';
-import { saveSvg, saveImg, defaultImage } from '../utils';
+import { saveSvg, saveImg } from '../utils';
 
 @Component({
   selector: 'ngx-simple-qrbtf-image-fill',
@@ -15,13 +15,12 @@ import { saveSvg, saveImg, defaultImage } from '../utils';
 export class ImageFillQrComponent implements OnInit, OnChanges {
 
   @Input() content: string = 'http://localhost'; // 二维码内容
-  @Input() size: number = 100; // 二维码信息点缩放比例
   @Input() level: 'L' | 'M' | 'Q' | 'H' = 'H'; // 二维码容错率
   @Input() opacity: number = 100; // 二维码信息点不透明度
   @Input('icon-enabled') iconEnabled: number = 0; // 是否启用 icon 图标
   @Input('icon-scale') iconScale: number = 33; // icon 大小
   @Input('icon-src') iconSrc: string = ''; // 自定义 icon 图标 iconEnabled = 1 时生效
-  @Input() image: string = defaultImage;
+  @Input() image: string = '';
   @Input() color: string = 'rgba(0,0,0,0)';
 
   qrcode!: string;
@@ -39,7 +38,6 @@ export class ImageFillQrComponent implements OnInit, OnChanges {
   getQrCode = () => {
     this.qrcode = ImageFillQr({
       content: this.content,
-      size: this.size,
       level: this.level,
       opacity: this.opacity,
       icon: {

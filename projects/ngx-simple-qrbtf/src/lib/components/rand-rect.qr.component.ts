@@ -15,9 +15,7 @@ import { saveSvg, saveImg, defaultImage } from '../utils';
 export class RandRectQrComponent implements OnInit, OnChanges {
 
   @Input() content: string = 'http://localhost'; // 二维码内容
-  @Input() size: number = 100; // 二维码信息点缩放比例
   @Input() level: 'L' | 'M' | 'Q' | 'H' = 'H'; // 二维码容错率
-  @Input() opacity: number = 100; // 二维码信息点不透明度
   @Input('icon-enabled') iconEnabled: number = 0; // 是否启用 icon 图标
   @Input('icon-scale') iconScale: number = 33; // icon 大小
   @Input('icon-src') iconSrc: string = ''; // 自定义 icon 图标 iconEnabled = 1 时生效
@@ -37,9 +35,7 @@ export class RandRectQrComponent implements OnInit, OnChanges {
   getQrCode = () => {
     this.qrcode = RandRectQr({
       content: this.content,
-      size: this.size,
       level: this.level,
-      opacity: this.opacity,
       icon: {
         enabled: this.iconEnabled,
         scale: this.iconScale,

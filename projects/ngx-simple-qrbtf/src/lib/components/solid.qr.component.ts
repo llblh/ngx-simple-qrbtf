@@ -21,11 +21,11 @@ export class SolidQrComponent implements OnInit, OnChanges {
   @Input('icon-enabled') iconEnabled: number = 0; // 是否启用 icon 图标
   @Input('icon-scale') iconScale: number = 33; // icon 大小
   @Input('icon-src') iconSrc: string = ''; // 自定义 icon 图标 iconEnabled = 1 时生效
-  @Input() upColor: string = '#333';
-  @Input() leftColor: string = '#666';
-  @Input() rightColor: string = '#999';
+  @Input('up-color') upColor: string = '#333';
+  @Input('left-color') leftColor: string = '#666';
+  @Input('right-color') rightColor: string = '#999';
   @Input() height: number = 0.5;
-  @Input() lpHeight: number = 1;
+  @Input('lp-height') lpHeight: number = 1;
 
   qrcode!: string;
 

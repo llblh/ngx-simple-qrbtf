@@ -25,8 +25,8 @@ export interface ResImageQrOptions {
 
 const ResImageQrRenderer: Renderer<ResImageQrOptions> = {
   defaultProps: {
-    alignType: 'center',
-    timingType: '',
+    // alignType: 'center',
+    // timingType: '',
     posColor: '',
   },
   listPoints: (props) => {

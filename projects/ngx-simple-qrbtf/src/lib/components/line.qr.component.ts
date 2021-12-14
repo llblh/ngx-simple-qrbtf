@@ -50,10 +50,10 @@ export class LineQrComponent implements OnInit, OnChanges {
 
   @Input('pos-type') posType: PosType | string = PosType.Rect; // 定位码样式
   @Input() direction: LineDirection | string = LineDirection.LeftToRight;
-  @Input() lineWidth: number = 50;
-  @Input() lineOpacity: number = 100;
-  @Input() lineColor: string = '#000000';
-  @Input() posColor: string = '#000000';
+  @Input('line-width') lineWidth: number = 50;
+  @Input('line-opacity') lineOpacity: number = 100;
+  @Input('line-color') lineColor: string = '#000000';
+  @Input('pos-color') posColor: string = '#000000';
 
   qrcode!: string;
 
@@ -79,8 +79,6 @@ export class LineQrComponent implements OnInit, OnChanges {
         src: this.iconSrc,
       },
       direction: this.direction,
-      lineWidth: this.lineWidth,
-      lineOpacity: this.lineOpacity,
       lineColor: this.lineColor,
       posType: this.posType,
       posColor: this.posColor,

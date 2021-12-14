@@ -1,240 +1,425 @@
-<div class="qrcode-form">
-  <div class="qrcode-form__header">
-    <h1>QR Code Generator</h1>
-  </div>
-  <div class="qrcode-form-body">
-    <div class="qrcode-form-group">
-      <label class="qrcode-form-label" for="qrcode-form-input">二维码内容</label>
-      <input class="qrcode-form-input" id="qrcode-form-input" type="text" placeholder="" [(ngModel)]="content" name="content" />
-    </div>
-    <div class="qrcode-form-group">
-      <label class="qrcode-form-label" for="qrcode-form_iconenabled">定位点样式</label>
-      <select class="qrcode-form-input" [(ngModel)]="posType">
-        <option value="rect">矩形</option>
-        <option value="round">圆形</option>
-        <option value="planet">行星</option>
-        <option value="roundRect">圆角矩形</option>
-      </select>
-    </div>
-    <div class="qrcode-form-group">
-      <label class="qrcode-form-label" for="qrcode-form_iconenabled">信息点样式</label>
-      <select class="qrcode-form-input" [(ngModel)]="type">
-        <option value="rect">矩形</option>
-        <option value="round">圆形</option>
-        <option value="rand">随机</option>
-      </select>
-    </div>
-    <div class="qrcode-form-group">
-      <label class="qrcode-form-label" for="qrcode-form_size">信息点缩放比例</label>
-      <input class="qrcode-form-input" id="qrcode-form_iconScale" type="range" min="1" max="100" placeholder="" [(ngModel)]="size" />
-    </div>
-    <div class="qrcode-form-group">
-      <label class="qrcode-form-label" for="qrcode-form_size">信息点透明度</label>
-      <input class="qrcode-form-input" id="qrcode-form_iconScale" type="range" min="1" max="100" placeholder="" [(ngModel)]="opacity" />
-    </div>
-    <div class="qrcode-form-group">
-      <label class="qrcode-form-label" for="qrcode-form_otherColor">定位点颜色</label>
-      <input class="qrcode-form-input" id="qrcode-form_posColor" type="color" [(ngModel)]="posColor" />
-    </div>
-    <div class="qrcode-form-group">
-      <label class="qrcode-form-label" for="qrcode-form_posColor">信息点颜色</label>
-      <input class="qrcode-form-input" id="qrcode-form_otherColor" type="color" [(ngModel)]="otherColor" />
-    </div>
-    <div class="qrcode-form-group">
-      <label class="qrcode-form-label" for="qrcode-form_iconenabled">图标</label>
-      <select class="qrcode-form-input" [(ngModel)]="iconEnabledType">
-        <option value="0">无</option>
-        <option value="1">自定义</option>
-        <option value="2">微信1</option>
-        <option value="3">微信2</option>
-        <option value="4">微信支付</option>
-        <option value="5">支付宝2</option>
-      </select>
-    </div>
-    <div class="qrcode-form-group" *ngIf="iconEnabled === 1">
-      <label class="qrcode-form-label" for="qrcode-form_icon-src">图标上传</label>
-      <input class="qrcode-form-input" id="qrcode-form_icon-src" type="file" (change)="onChangeIconSrc($event)" />
-    </div>
-    <div class="qrcode-form-group" *ngIf="iconEnabled !== 0">
-      <label class="qrcode-form-label" for="qrcode-form_iconScale">图标大小</label>
-      <input class="qrcode-form-input" id="qrcode-form_iconScale" type="range" min="10" max="33" placeholder="" [(ngModel)]="iconScale" />
-    </div>
-  </div>
-<div class="content">
-  <div class="item">
+<header class="header">
+  <div class="header-qrcode">
     <ngx-simple-qrbtf-base
+      *ngIf="currentType === 'base'"
       #qrcodeBase
       class="qrcode"
+      level="M"
       [content]="content"
-      [type]="type"
-      [pos-type]="posType"
-      [size]="size"
-      [otherColor]="otherColor"
-      [posColor]="posColor"
-      [opacity]="opacity"
       [icon-enabled]="iconEnabled"
       [icon-scale]="iconScale"
       [icon-src]="iconSrc"
+      [pos-color]="basePosColor"
+      [other-color]="baseOtherColor"
+      [type]="baseType"
+      [pos-type]="basePosType"
+      [size]="baseSize"
+      [opacity]="baseOpacity"
     ></ngx-simple-qrbtf-base>
-    <div>
-      <button class="qrcode-form-button" (click)="download('base', 'svg')">下载SVG</button>
-      <button class="qrcode-form-button" (click)="download('base', 'png')">下载PNG</button>
-      <button class="qrcode-form-button" (click)="download('base', 'jpg')">下载JPG</button>
-    </div>
-  </div>
-  <div class="item">
-    <ngx-simple-qrbtf-circle
-      #qrcodeCircle
-      class="qrcode"
-      [content]="content"
-      [size]="size"
-      [otherColor]="otherColor"
-      [posColor]="posColor"
-      [opacity]="opacity"
-      [icon-enabled]="iconEnabled"
-      [icon-scale]="iconScale"
-      [icon-src]="iconSrc"
-    ></ngx-simple-qrbtf-circle>
-    <div>
-      <button class="qrcode-form-button" (click)="download('circle', 'svg')">下载SVG</button>
-      <button class="qrcode-form-button" (click)="download('circle', 'png')">下载PNG</button>
-      <button class="qrcode-form-button" (click)="download('circle', 'jpg')">下载JPG</button>
-    </div>
-  </div>
-  <div class="item">
-    <ngx-simple-qrbtf-dsj
-      #qrcodeDsj
-      class="qrcode"
-      [content]="content"
-      [size]="size"
-      [icon-enabled]="iconEnabled"
-      [icon-scale]="iconScale"
-      [icon-src]="iconSrc"
-    ></ngx-simple-qrbtf-dsj>
-    <div>
-      <button class="qrcode-form-button" (click)="download('dsj', 'svg')">下载SVG</button>
-      <button class="qrcode-form-button" (click)="download('dsj', 'png')">下载PNG</button>
-      <button class="qrcode-form-button" (click)="download('dsj', 'jpg')">下载JPG</button>
-    </div>
-  </div>
-  <div class="item">
     <ngx-simple-qrbtf-func
+      *ngIf="currentType === 'func'"
       #qrcodeFunc
       class="qrcode"
       [content]="content"
-      [type]="type"
-      [pos-type]="posType"
-      [size]="size"
-      [posColor]="posColor"
-      [opacity]="opacity"
       [icon-enabled]="iconEnabled"
       [icon-scale]="iconScale"
       [icon-src]="iconSrc"
+      [pos-type]="funcPosType"
+      [pos-color]="funcPosColor"
+      [type]="funcType"
+      [other-color1]="funcOtherColor1"
+      [other-color2]="funcOtherColor2"
+      [opacity]="funcOpacity"
+      [func-type]="funcFuncType"
     ></ngx-simple-qrbtf-func>
-    <div>
-      <button class="qrcode-form-button" (click)="download('func', 'svg')">下载SVG</button>
-      <button class="qrcode-form-button" (click)="download('func', 'png')">下载PNG</button>
-      <button class="qrcode-form-button" (click)="download('func', 'jpg')">下载JPG</button>
-    </div>
-  </div>
-  <div class="item">
-    <ngx-simple-qrbtf-image-fill
-      #qrcodeImageFill
-      class="qrcode"
-      [content]="content"
-      [size]="size"
-      [opacity]="opacity"
-      [icon-enabled]="iconEnabled"
-      [icon-scale]="iconScale"
-      [icon-src]="iconSrc"
-    ></ngx-simple-qrbtf-image-fill>
-    <div>
-      <button class="qrcode-form-button" (click)="download('image-fill', 'svg')">下载SVG</button>
-      <button class="qrcode-form-button" (click)="download('image-fill', 'png')">下载PNG</button>
-      <button class="qrcode-form-button" (click)="download('image-fill', 'jpg')">下载JPG</button>
-    </div>
-  </div>
-  <div class="item">
-    <ngx-simple-qrbtf-image
-      #qrcodeImage
-      class="qrcode"
-      [content]="content"
-      [size]="size"
-      [opacity]="opacity"
-      [icon-enabled]="iconEnabled"
-      [icon-scale]="iconScale"
-      [icon-src]="iconSrc"
-      darkColor= "#000000"
-      lightColor= "#FFFFFF"
-      posColor= "#000000"
-    ></ngx-simple-qrbtf-image>
-    <div>
-      <button class="qrcode-form-button" (click)="download('image', 'svg')">下载SVG</button>
-      <button class="qrcode-form-button" (click)="download('image', 'png')">下载PNG</button>
-      <button class="qrcode-form-button" (click)="download('image', 'jpg')">下载JPG</button>
-    </div>
-  </div>
-  <div class="item">
     <ngx-simple-qrbtf-line
-      #qrcodeImageLine
+      *ngIf="currentType === 'line'"
+      #qrcodeLine
       class="qrcode"
       [content]="content"
-      [size]="size"
-      [opacity]="opacity"
       [icon-enabled]="iconEnabled"
       [icon-scale]="iconScale"
       [icon-src]="iconSrc"
-      pos-type="rect"
-      direction = "left-right"
-      [lineWidth] = "50"
-      [lineOpacity] = "100"
-      lineColor  = "#000000"
-      posColor  = "#000000"
+      [pos-type]="linePosType"
+      [pos-color]="linePosColor"
+      [direction]="lineDirection"
+      [size]="lineLineWidth"
+      [opacity]="lineLineOpacity"
+      [line-color]="lineLineColor"
     ></ngx-simple-qrbtf-line>
-    <div>
-      <button class="qrcode-form-button" (click)="download('line', 'svg')">下载SVG</button>
-      <button class="qrcode-form-button" (click)="download('line', 'png')">下载PNG</button>
-      <button class="qrcode-form-button" (click)="download('line', 'jpg')">下载JPG</button>
-    </div>
-  </div>
-  <div class="item">
+    <ngx-simple-qrbtf-circle
+      *ngIf="currentType === 'circle'"
+      #qrcodeCircle
+      class="qrcode"
+      [content]="content"
+      [icon-enabled]="iconEnabled"
+      [icon-scale]="iconScale"
+      [icon-src]="iconSrc"
+      [other-color]="circleOtherColor"
+      [pos-color]="circlePosColor"
+    ></ngx-simple-qrbtf-circle>
+    <ngx-simple-qrbtf-dsj
+      *ngIf="currentType === 'dsj'"
+      #qrcodeDsj
+      class="qrcode"
+      [content]="content"
+      [icon-enabled]="iconEnabled"
+      [icon-scale]="iconScale"
+      [icon-src]="iconSrc"
+      [pos-type]="dsjPosType"
+      [pos-width]="dsjPosWidth"
+      [scale]="dsjScale"
+      [cross-width]="dsjCrossWidth"
+    ></ngx-simple-qrbtf-dsj>
     <ngx-simple-qrbtf-rand-rect
+      *ngIf="currentType === 'rand-rect'"
       #qrcodeImageRandRest
       class="qrcode"
       [content]="content"
-      [size]="size"
-      [opacity]="opacity"
       [icon-enabled]="iconEnabled"
       [icon-scale]="iconScale"
       [icon-src]="iconSrc"
     ></ngx-simple-qrbtf-rand-rect>
-    <div>
-      <button class="qrcode-form-button" (click)="download('rand-rect', 'svg')">下载SVG</button>
-      <button class="qrcode-form-button" (click)="download('rand-rect', 'png')">下载PNG</button>
-      <button class="qrcode-form-button" (click)="download('rand-rect', 'jpg')">下载JPG</button>
-    </div>
-  </div>
-  <div class="item">
-    <ngx-simple-qrbtf-solid
-      #qrcodeImageFill
+    <ngx-simple-qrbtf-image
+      *ngIf="currentType === 'image'"
+      #qrcodeImage
       class="qrcode"
       [content]="content"
-      [size]="size"
-      [opacity]="opacity"
       [icon-enabled]="iconEnabled"
       [icon-scale]="iconScale"
       [icon-src]="iconSrc"
-      upColor="#333"
-      leftColor="#666"
-      rightColor="#999"
-      [height]="0.5"
-      [lpHeight]= "1"
+      [pos-type]="imagePosType"
+      [pos-color]="imagePosColor"
+      [size]="imageSize"
+      [opacity]="imageOpacity"
+      [type]="imageType"
+      [dark-color]="imageDarkColor"
+      [light-color]="imageLightColor"
+      [image]="imageSrc"
+    ></ngx-simple-qrbtf-image>
+    <ngx-simple-qrbtf-image-fill
+      *ngIf="currentType === 'image-fill'"
+      #qrcodeImageFill
+      class="qrcode"
+      [content]="content"
+      [icon-enabled]="iconEnabled"
+      [icon-scale]="iconScale"
+      [icon-src]="iconSrc"
+      [image]="imageSrc"
+      [color]="imageFillColor"
+      [opacity]="imageFillOpacity"
+    ></ngx-simple-qrbtf-image-fill>
+    <ngx-simple-qrbtf-solid
+      *ngIf="currentType === 'solid'"
+      #qrcodeSolid
+      class="qrcode"
+      [content]="content"
+      [icon-enabled]="iconEnabled"
+      [icon-scale]="iconScale"
+      [icon-src]="iconSrc"
+      [up-color]="solidUpColor"
+      [left-color]="solidLeftColor"
+      [right-color]="solidRightColor"
+      [height]="solidHeight"
+      [lp-height]="solidLpHeight"
     ></ngx-simple-qrbtf-solid>
+  </div>
+  <div class="header-content">
+    <span class="mb-xs">生成的二维码内容</span>
+    <input
+      [(ngModel)]="content"
+      name="content"
+    />
+    <span>选择导出二维码的格式</span>
     <div>
-      <button class="qrcode-form-button" (click)="download('solid', 'svg')">下载SVG</button>
-      <button class="qrcode-form-button" (click)="download('solid', 'png')">下载PNG</button>
-      <button class="qrcode-form-button" (click)="download('solid', 'jpg')">下载JPG</button>
+      <button (click)="downloadData('jpg')">JPG</button>
+      <button (click)="downloadData('png')">PNG</button>
+      <button (click)="downloadData('svg')">SVG</button>
     </div>
   </div>
-  
-</div>
+</header>
+<section>
+  <div class="qrcode-demo">
+    <div *ngFor="let item of list" (click)="chooseType(item.name)">
+      <img
+        class="img"
+        [ngClass]="currentType === item.name ? 'active' : ''"
+        [src]="item.cover"
+        alt="template"
+      />
+      <span>{{item.name}}</span>
+    </div>
+  </div>
+  <form class="form">
+    <div class="form-item">
+      <label>中心图标</label>
+      <select [(ngModel)]="iconEnabled" name="iconEnabled">
+        <option value="0">无</option>
+        <option value="1">自定义</option>
+        <option value="2">微信-小</option>
+        <option value="3">微信</option>
+        <option value="4">微信支付</option>
+        <option value="5">支付宝</option>
+      </select>
+    </div>
+    <div class="form-item" *ngIf="iconEnabled === 1">
+      <label>图标源</label>
+      <input
+        #uploadFileInput
+        type="file"
+        class="none"
+        name="file"
+        (change)="onChangeSrc($event, 'iconSrc')"
+        multiple="false"
+        accept=".jpg,.png,.jpeg"
+      />
+      <button (click)="uploadFile()">上传图片</button>
+    </div>
+    <div class="form-item" *ngIf="iconEnabled > 0">
+      <label>图标缩放比例</label>
+      <input type="range" [(ngModel)]="iconScale" name="iconScale" min="10" max="33" />
+    </div>
+    <ng-template [ngIf]="currentType === 'base'">
+      <div class="form-item">
+        <label>码眼样式</label>
+        <select [(ngModel)]="basePosType" name="basePosType">
+          <option value="rect">矩形</option>
+          <option value="round">圆形</option>
+          <option value="planet">行星</option>
+          <option value="roundRect">圆角矩形</option>
+        </select>
+      </div>
+      <div class="form-item">
+        <label>码眼颜色</label>
+        <input type="color" [(ngModel)]="basePosColor" name="basePosColor" />
+      </div>
+      <div class="form-item">
+        <label>信息点样式</label>
+        <select [(ngModel)]="baseType" name="baseType">
+          <option value="rect">矩形</option>
+          <option value="round">圆形</option>
+          <option value="rand">随机</option>
+        </select>
+      </div>
+      <div class="form-item">
+        <label>信息点颜色</label>
+        <input type="color" [(ngModel)]="baseOtherColor" name="baseOtherColor" />
+      </div>
+      <div class="form-item">
+        <label>信息点透明度</label>
+        <input type="range" [(ngModel)]="baseOpacity" name="baseOpacity" min="1" max="100" />
+      </div>
+      <div class="form-item">
+        <label>信息点大小</label>
+        <input type="range" [(ngModel)]="baseSize" name="baseSize" min="1" max="100" />
+      </div>
+    </ng-template>
+    <ng-template [ngIf]="currentType === 'func'">
+      <div class="form-item">
+        <label>码眼样式</label>
+        <select [(ngModel)]="funcPosType" name="funcPosType">
+          <option value="rect">矩形</option>
+          <option value="round">圆形</option>
+          <option value="planet">行星</option>
+          <option value="roundRect">圆角矩形</option>
+        </select>
+      </div>
+      <div class="form-item">
+        <label>码眼颜色</label>
+        <input type="color" [(ngModel)]="funcPosColor" name="funcPosColor" />
+      </div>
+      <div class="form-item">
+        <label>干扰函数</label>
+        <select [(ngModel)]="funcFuncType" name="funcFuncType">
+          <option value="A" nzLabel="A"></option>
+          <option value="B" nzLabel="B"></option>
+        </select>
+      </div>
+      <div class="form-item">
+        <label>信息点样式</label>
+        <select [(ngModel)]="funcType" name="funcType">
+          <option value="rect">矩形</option>
+          <option value="round">圆形</option>
+        </select>
+      </div>
+      <div class="form-item">
+        <label>信息点1颜色</label>
+        <input type="color" [(ngModel)]="funcOtherColor1" name="funcOtherColor1" />
+      </div>
+      <div class="form-item">
+        <label>信息点2颜色</label>
+        <input type="color" [(ngModel)]="funcOtherColor2" name="funcOtherColor2" />
+      </div>
+      <div class="form-item">
+        <label>信息点透明度</label>
+        <input type="range" [(ngModel)]="funcOpacity" name="funcOpacity" min="1" max="100" />
+      </div>
+    </ng-template>
+    <ng-template [ngIf]="currentType === 'line'">
+      <label></label>
+      <div class="form-item">
+        <label>码眼样式</label>
+        <select [(ngModel)]="linePosType" name="linePosType">
+          <option value="rect">矩形</option>
+          <option value="round">圆形</option>
+          <option value="planet">行星</option>
+          <option value="roundRect">圆角矩形</option>
+        </select>
+      </div>
+      <div class="form-item">
+        <label>码眼颜色</label>
+        <input type="color" [(ngModel)]="linePosColor" name="linePosColor" />
+      </div>
+      <div class="form-item">
+        <label>连线方向</label>
+        <select [(ngModel)]="lineDirection" name="lineDirection">
+          <option value="left-right">左右</option>
+          <option value="up-down">上下</option>
+          <option value="h-v">纵横</option>
+          <option value="loop">回环</option>
+          <option value="topLeft-bottomRight">左上 - 右下</option>
+          <option value="topRight-bottomLeft">右上 - 左下</option>
+          <option value="cross">交叉</option>
+        </select>
+      </div>
+      <div class="form-item">
+        <label>连线粗细</label>
+        <input type="range" [(ngModel)]="lineLineWidth" name="lineLineWidth" min="1" max="200" />
+      </div>
+      <div class="form-item">
+        <label>连线透明度</label>
+        <input type="range" [(ngModel)]="lineLineOpacity" name="lineLineOpacity" min="1" max="100" />
+      </div>
+      <div class="form-item">
+        <label>连线颜色</label>
+        <input type="color" [(ngModel)]="lineLineColor" name="lineLineColor" />
+      </div>
+    </ng-template>
+    <ng-template [ngIf]="currentType === 'circle'">
+      <div class="form-item">
+        <label>码眼颜色</label>
+        <input type="color" [(ngModel)]="circleOtherColor" name="circleOtherColor" />
+      </div>
+      <div class="form-item">
+        <label>圆圈颜色</label>
+        <input type="color" [(ngModel)]="circlePosColor" name="circlePosColor" />
+      </div>
+    </ng-template>
+    <ng-template [ngIf]="currentType === 'dsj'">
+      <div class="form-item">
+        <label>码眼样式</label>
+        <select [(ngModel)]="dsjPosType" name="dsjPosType">
+          <option value="rect">矩形</option>
+          <option value="dsj">DSJ</option>
+        </select>
+      </div>
+      <div class="form-item">
+        <label>码眼宽度</label>
+        <input type="range" [(ngModel)]="dsjPosWidth" name="dsjPosWidth" min="1" max="100" />
+      </div>
+      <div class="form-item">
+        <label>信息点缩放</label>
+        <input type="range" [(ngModel)]="dsjScale" name="dsjScale" min="1" max="100" />
+      </div>
+      <div class="form-item">
+        <label>X 宽度</label>
+        <input type="range" [(ngModel)]="dsjCrossWidth" name="dsjCrossWidth" min="1" max="100" />
+      </div>
+    </ng-template>
+    <ng-template [ngIf]="currentType === 'image'">
+      <div class="form-item">
+        <label>背景图片</label>
+        <input
+          #uploadFileInput
+          type="file"
+          class="none"
+          name="file"
+          (change)="onChangeSrc($event, 'imageSrc')"
+          multiple="false"
+          accept=".jpg,.png,.jpeg"
+        />
+        <button (click)="uploadFile()">上传图片</button>
+      </div>
+      <div class="form-item">
+        <label>码眼样式</label>
+        <select [(ngModel)]="imagePosType" name="imagePosType">
+          <option value="rect">矩形</option>
+          <option value="round">圆形</option>
+          <option value="planet">行星</option>
+        </select>
+      </div>
+      <div class="form-item">
+        <label>码眼颜色</label>
+        <input type="color" [(ngModel)]="imagePosColor" name="imagePosColor" />
+      </div>
+      <div class="form-item">
+        <label>信息点样式</label>
+        <select [(ngModel)]="imageType" name="imageType">
+          <option value="rect">矩形</option>
+          <option value="round">圆形</option>
+        </select>
+      </div>
+      <div class="form-item">
+        <label>信息点透明度</label>
+        <input type="range" [(ngModel)]="imageOpacity" name="imageOpacity" min="1" max="100" />
+      </div>
+      <div class="form-item">
+        <label>信息点大小</label>
+        <input type="range" [(ngModel)]="imageSize" name="imageSize" min="1" max="100" />
+      </div>
+      <div class="form-item">
+        <label>信息点深色</label>
+        <input type="color" [(ngModel)]="imageDarkColor" name="imageDarkColor" />
+      </div>
+      <div class="form-item">
+        <label>信息点浅色</label>
+        <input type="color" [(ngModel)]="imageLightColor" name="imageLightColor" />
+      </div>
+    </ng-template>
+    <ng-template [ngIf]="currentType === 'image-fill'">
+      <div class="form-item">
+        <label>背景图片</label>
+        <input
+          #uploadFileInput
+          type="file"
+          class="none"
+          name="file"
+          (change)="onChangeSrc($event, 'imageSrc')"
+          multiple="false"
+          accept=".jpg,.png,.jpeg"
+        />
+        <button (click)="uploadFile()">上传图片</button>
+      </div>
+      <div class="form-item">
+        <label>覆盖颜色</label>
+        <input type="color" [(ngModel)]="imageFillColor" name="imageFillColor" />
+      </div>
+      <div class="form-item">
+        <label>覆盖透明度</label>
+        <input type="range" [(ngModel)]="imageFillOpacity" name="imageFillOpacity" min="1" max="100" />
+      </div>
+    </ng-template>
+    <ng-template [ngIf]="currentType === 'solid'">
+      <div class="form-item">
+        <label>柱体高度</label>
+        <input type="range" [(ngModel)]="solidHeight" name="solidHeight" min="0" max="100" step="0.1" />
+      </div>
+      <div class="form-item">
+        <label>码眼柱体高度</label>
+        <input type="range" [(ngModel)]="solidLpHeight" name="solidLpHeight" min="0" max="100" step="0.1" />
+      </div>
+      <div class="form-item">
+        <label>上侧颜色</label>
+        <input type="color" [(ngModel)]="solidUpColor" name="solidUpColor" />
+      </div>
+      <div class="form-item">
+        <label>左侧颜色</label>
+        <input type="color" [(ngModel)]="solidLeftColor" name="solidLeftColor" />
+      </div>
+      <div class="form-item">
+        <label>右侧颜色</label>
+        <input type="color" [(ngModel)]="solidRightColor" name="solidRightColor" />
+      </div>
+    </ng-template>
+  </form>
+</section>

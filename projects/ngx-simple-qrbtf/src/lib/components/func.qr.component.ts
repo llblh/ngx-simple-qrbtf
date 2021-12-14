@@ -32,7 +32,7 @@ enum PosType {
 export class FuncQrComponent implements OnInit, OnChanges {
 
   @Input() content: string = 'http://localhost'; // 二维码内容
-  @Input() size: number = 100; // 二维码信息点缩放比例
+  // @Input() size: number = 100; // 二维码信息点缩放比例
   @Input() level: 'L' | 'M' | 'Q' | 'H' = 'H'; // 二维码容错率
   @Input() opacity: number = 100; // 二维码信息点不透明度
   @Input('icon-enabled') iconEnabled: number = 0; // 是否启用 icon 图标
@@ -42,9 +42,9 @@ export class FuncQrComponent implements OnInit, OnChanges {
   @Input('func-type') funcType: FuncType | string = FuncType.FuncA; // 干扰函数
   @Input() type: Type | string = Type.Rect; // 
   @Input('pos-type') posType: PosType | string = PosType.Rect; // 定位码样式
-  @Input() otherColor1: string = '#000'; // 信息点1颜色
-  @Input() otherColor2: string = '#999'; // 信息点2颜色
-  @Input() posColor: string = '#777'; // 定位码颜色
+  @Input('other-color1') otherColor1: string = '#000'; // 信息点1颜色
+  @Input('other-color2') otherColor2: string = '#999'; // 信息点2颜色
+  @Input('pos-color') posColor: string = '#777'; // 定位码颜色
 
   qrcode!: string;
 
@@ -61,7 +61,7 @@ export class FuncQrComponent implements OnInit, OnChanges {
   getQrCode = () => {
     this.qrcode = FuncQr({
       content: this.content,
-      size: this.size,
+      // size: this.size,
       level: this.level,
       opacity: this.opacity,
       icon: {

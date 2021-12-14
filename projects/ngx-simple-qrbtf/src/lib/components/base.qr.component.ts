@@ -23,8 +23,8 @@ export class BaseQrComponent implements OnInit, OnChanges {
   @Input('icon-src') iconSrc: string = ''; // 自定义 icon 图标 iconEnabled = 1 时生效
   @Input() type: Type | string = 'rect'; // 二维码定位点样式
   @Input('pos-type') posType: PosType | string = 'rect'; // 二维码信息点样式
-  @Input() otherColor: string = '#000000'; // 二维码定位点颜色
-  @Input() posColor: string = '#000000'; // 二维码信息点颜色
+  @Input('other-color') otherColor: string = '#000000'; // 二维码定位点颜色
+  @Input('pos-color') posColor: string = '#000000'; // 二维码信息点颜色
 
   qrcode!: string;
 

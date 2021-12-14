@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { ImageQr } from './image.qr';
-import { saveSvg, saveImg, defaultImage } from '../utils';
+import { saveSvg, saveImg } from '../utils';
 
 enum Type {
   Rect = 'rect',
@@ -34,10 +34,10 @@ export class ImageQrComponent implements OnInit, OnChanges {
   @Input('icon-src') iconSrc: string = ''; // 自定义 icon 图标 iconEnabled = 1 时生效
   @Input() type: Type | string = Type.Rect; // 
   @Input('pos-type') posType: PosType | string = PosType.Rect; // 定位码样式
-  @Input('image') image: string = defaultImage;
-  @Input('darkColor') darkColor: string = '#000000';
-  @Input('lightColor') lightColor: string = '#FFFFFF';
-  @Input('posColor') posColor: string = '#000000';
+  @Input('image') image: string = '';
+  @Input('dark-color') darkColor: string = '#000000';
+  @Input('light-color') lightColor: string = '#FFFFFF';
+  @Input('pos-color') posColor: string = '#000000';
 
   qrcode!: string;
 

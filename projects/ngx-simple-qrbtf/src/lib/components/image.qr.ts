@@ -53,7 +53,7 @@ const ImageQrRenderer: Renderer<ImageQrOptions> = {
     if (size <= 0) size = 1.0;
 
     pointList.push(
-      `<image x='0' y='0' width='${nCount}' height='${nCount}' xlink:href='${image}'/>`
+      `<image x='0' y='0' width='${nCount}' height='${nCount}' xlink:href='${image || defaultImage}'/>`
     );
 
     for (let x = 0; x < nCount; x++) {
