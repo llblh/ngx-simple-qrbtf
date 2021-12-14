@@ -82,24 +82,20 @@ import { NgxSimpleQrbtfModule } from '@carpenter/ngx-simple-qrbtf';
 ngx-simple-qrbtf-base
 | 参数 | 说明 | 类型 | 默认值 | 是否必填 |
 | --- | --- | --- | --- | --- |
-| `[level]` | 容错率 | `string\|LevelType` | H |
 | `[size]` | 信息点缩放比例 | `number` | 100 |
 | `[opacity]` | 信息点不透明度 | `number` | 100 |
 | `[type]` | 信息点样式 | `'rect' \| 'round' \| 'rand'` | `rect` |
 | `[pos-type]` | 定位点样式 | `'rect' \| 'round' \| 'planet' \| 'roundRect'` | `rect` |
 | `[other-color]` | 信息点颜色 | `string` | `#000000` |
-| `[pos-color]` | 定位点颜色 | `string` | `#000000` |
+| `[pos-color]` | 定位点颜色 | `string` | `#000000` |  |
 
 ngx-simple-qrbtf-circle
 | 参数 | 说明 | 类型 | 默认值 | 是否必填 |
 | --- | --- | --- | --- | --- |
-| `[level]` | 容错率 | `string\|LevelType` | H |
 | `[size]` | 信息点缩放比例 | `number` | 100 |
 | `[opacity]` | 信息点不透明度 | `number` | 100 |
 | `[other-color]` | 信息点颜色 | `string` | `#000000` |
 | `[pos-color]` | 定位点颜色 | `string` | `#000000` |
-
-
 
 
 
