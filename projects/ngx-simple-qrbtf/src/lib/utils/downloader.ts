@@ -3,11 +3,11 @@ const svgHead = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n " +
 
 const MIME: { [key: string]: string } = { jpg: "image/jpeg", png: "image/png" };
 
-export function saveSvg(value: string, content: string) {
+export function saveSvg(content: string, name: string = '') {
   let htmlContent = [svgHead + content]
   let bl = new Blob(htmlContent, { type: "image/svg+xml" })
   let a = document.createElement("a")
-  let filename = "QRcode_" + value + ".svg"
+  let filename = `${name || 'Qrcode_svg' }.svg`;
 
   a.href = URL.createObjectURL(bl)
   a.download = filename
@@ -15,11 +15,11 @@ export function saveSvg(value: string, content: string) {
   a.click()
 }
 
-export function saveImg(value: string, content: string, width: number, height: number, type: string) {
+export function saveImg(content: string, width: number, height: number, type: string, name: string = '') {
   if (!MIME[type]) throw "Error image type";
 
   // Finish creating downloadable data
-  let filename = "QRcode_" + value + "." + type;
+  let filename = `${name || `Qrcode_${type}`}.${type}`;
   const wrap = document.createElement('div');
   wrap.innerHTML = content;
 

@@ -78,11 +78,11 @@ export class FuncQrComponent implements OnInit, OnChanges {
     });
   }
 
-  public download(name: string, type: string) {
+  public download(type: string, name: string = '') {
     if (type === 'svg') {
-      saveSvg(name, this.qrcode);
+      saveSvg(this.qrcode, name);
       return;
     }
-    saveImg(name, this.qrcode, 1000, 1000, type);
+    saveImg(this.qrcode, 1000, 1000, type, name);
   }
 }

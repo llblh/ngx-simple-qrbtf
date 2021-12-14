@@ -134,25 +134,25 @@ export class AppComponent {
   
     // 下载
     downloadData = (type: string) => {
-      const name = type;
+      const name = `Qrcode_${type}`;
       if (this.currentType === 'base') {
-        this.qrcodeBase.download(name, type);
+        this.qrcodeBase.download(type, name);
       } else if (this.currentType === 'func') {
-        this.qrcodeFunc.download(name, type);
+        this.qrcodeFunc.download(type, name);
       } else if (this.currentType === 'line') {
-        this.qrcodeLine.download(name, type);
+        this.qrcodeLine.download(type, name);
       } else if (this.currentType === 'circle') {
-        this.qrcodeCircle.download(name, type);
+        this.qrcodeCircle.download(type, name);
       } else if (this.currentType === 'dsj') {
-        this.qrcodeDsj.download(name, type);
+        this.qrcodeDsj.download(type, name);
       } else if (this.currentType === 'rand-rect') {
-        this.qrcodeImageRandRest.download(name, type);
+        this.qrcodeImageRandRest.download(type, name);
       } else if (this.currentType === 'image') {
-        this.qrcodeImage.download(name, type);
+        this.qrcodeImage.download(type, name);
       } else if (this.currentType === 'image-fill') {
-        this.qrcodeImageFill.download(name, type);
+        this.qrcodeImageFill.download(type, name);
       } else if (this.currentType === 'solid') {
-        this.qrcodeSolid.download(name, type);
+        this.qrcodeSolid.download(type, name);
       }
     }
   
