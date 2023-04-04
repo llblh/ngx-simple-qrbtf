@@ -7,7 +7,7 @@
 [gtihub](https://github.com/)
 
 ## 安装
-Angular ^13.0.0
+Angular ^14.0.0
 <!-- ```npm i @carpenter/ngx-simple-qrbtf``` -->
 
 ## 使用
